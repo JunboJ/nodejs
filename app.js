@@ -1,6 +1,7 @@
 const exp = require('express');
 // this parser is just for the req send through forms
 const parser = require('body-parser');
+const path = require('path');
 
 const app = exp();
 
@@ -9,9 +10,17 @@ const userRouter = require('./routes/user');
 
 app.use(parser.urlencoded({extended: false})); // the function in the use() argument has next() at the end
 
-app.use(adminRouter);
-
+// filtering pages by add common path name here
+app.use('/admin', adminRouter);
 app.use(userRouter);
+
+app.use((req, res ,next) => {
+    res.status(404).sendFile(path.join(__dirname, './', 'html', '404.html'));
+});
+
+app.listen(3000);
+
+
 // app.use((req, res, next) => {
 //     console.log('the first middleware...');
 //     next();
@@ -34,4 +43,4 @@ app.use(userRouter);
 //     res.send('<h1>HELLO FROM EXPRESS.JS!</h1>');
 // });
 
-app.listen(3000);
+// app.listen(3000);

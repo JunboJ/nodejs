@@ -1,17 +1,22 @@
 const exp = require('express');
 
+const path = require('path');
+const rootDir = require('../utility/path');
+
 const router = exp.Router();
 
+
+// same path can be used due to different method
 router.get('/add-product', (req, res, next) => {
     // express send text/html code by default
-    res.send('<html><head><title>Product page</title></head><body><p><h1>This is add product page...</h1></p><form action="/product" method="POST"><input type="text" name="productName"><button type="submit">Add product</button></form></body></html>');
+    res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
 
 });
 
 // post has similar sytax as 'use' only it is just for post action
-router.post('/product', (req, res, next) => {
+router.post('/add-product', (req, res, next) => {
     console.log(req.body);
-    res.redirect('/');
+    res.redirect('/home');
 });
 
 module.exports = router;

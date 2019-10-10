@@ -9,6 +9,7 @@ const adminRouter = require('./routes/admin');
 const userRouter = require('./routes/user');
 
 app.use(parser.urlencoded({extended: false})); // the function in the use() argument has next() at the end
+app.use(exp.static(path.join(__dirname, 'public'))); //give access to public folder
 
 // filtering pages by add common path name here
 app.use('/admin', adminRouter);

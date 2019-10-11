@@ -1,0 +1,38 @@
+#inputArea {
+    height: auto;
+    padding-top: 25vh;
+}
+
+main h1 {
+    display:table;
+    margin: 1rem auto 3rem;
+}
+
+form {
+    width: 200px;
+    max-width: 90%;
+    margin: auto;
+}
+
+input:focus, button:focus {
+    outline: none;
+}
+
+#inputField {
+    width: inherit;
+    border-radius: 1rem;
+    border-color: dimgray;
+    padding: 5px;
+}
+
+form button {
+    display: block;
+    margin: 1rem auto;
+    border-radius: 5px;
+    border-color: darkgray;
+    border-width: thin;
+}
+
+form button:hover {
+    border-color: dimgray;
+}

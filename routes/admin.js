@@ -1,10 +1,10 @@
 const exp = require('express');
-
 const path = require('path');
 const rootDir = require('../utility/path');
 
 const router = exp.Router();
 
+const product = [];
 
 // same path can be used due to different method
 router.get('/add-product', (req, res, next) => {
@@ -15,8 +15,11 @@ router.get('/add-product', (req, res, next) => {
 
 // post has similar sytax as 'use' only it is just for post action
 router.post('/add-product', (req, res, next) => {
-    console.log(req.body);
+    product.push({ title: req.body.productName })
     res.redirect('/home');
 });
 
-module.exports = router;
+module.exports = {
+    "routes": router,
+    "product": product
+};

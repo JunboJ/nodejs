@@ -12,7 +12,7 @@ app.use(parser.urlencoded({extended: false})); // the function in the use() argu
 app.use(exp.static(path.join(__dirname, 'public'))); //give access to public folder
 
 // filtering pages by add common path name here
-app.use('/admin', adminRouter);
+app.use('/admin', adminRouter.routes);
 app.use(userRouter);
 
 app.use((req, res ,next) => {

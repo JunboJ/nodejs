@@ -1,4 +1,4 @@
-#inputArea {
+.inputArea {
     height: auto;
     padding-top: 25vh;
 }
@@ -18,7 +18,7 @@ input:focus, button:focus {
     outline: none;
 }
 
-#inputField {
+.inputField {
     width: inherit;
     border-radius: 1rem;
     border-color: dimgray;

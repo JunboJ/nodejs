@@ -9,13 +9,14 @@ const product = [];
 // same path can be used due to different method
 router.get('/add-product', (req, res, next) => {
     // express send text/html code by default
-    res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
+    // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
+    res.render('add-product');
 
 });
 
 // post has similar sytax as 'use' only it is just for post action
 router.post('/add-product', (req, res, next) => {
-    product.push({ title: req.body.productName })
+    product.push({ title: req.body.name, img: req.body.img, info: req.body.info })
     res.redirect('/home');
 });
 

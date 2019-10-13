@@ -1,0 +1,9 @@
+main .card {
+    margin: 1rem 1rem;
+    display: inline-block;
+}
+
+.card img {
+    object-fit: cover;
+    min-height: 404px;
+}

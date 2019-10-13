@@ -6,10 +6,14 @@ const adminData = require('./admin');
 
 const router = exp.Router();
 
-router.use('/home', (req, res, next) => {
+router.get('/home', (req, res, next) => {
     // express send text/html code by default
-    console.log(adminData.product);
-    res.sendFile(path.join(rootDir, 'html', 'user.html'));
+        console.log(adminData.product);
+        // res.sendFile(path.join(rootDir, 'html', 'user.html'));
+    // render method will use default template engine defind in app.js
+    const products = adminData.product;
+    res.render('user', { productList: products,  dataTitle: 'User Page'});
+
 });
 
 module.exports = router;

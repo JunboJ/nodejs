@@ -6,4 +6,5 @@ main .card {
 .card img {
     object-fit: cover;
     min-height: 404px;
+    padding: 6px;
 }

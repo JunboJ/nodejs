@@ -12,9 +12,9 @@ html(lang="en")
         header.mainHeader
             nav.mainHeader__nav
                 ul.mainHeader__list
-                    li.mainHeader__item
+                    li.mainHeader__item(class=( path == '/home' ? 'active' : '' ))
                         a(href="/home") Shop
-                    li.mainHeader__item
+                    li.mainHeader__item(class=( path == '/add-product' ? 'active' : '' ))
                         a(href="/admin/add-product") Add product
 
         block content

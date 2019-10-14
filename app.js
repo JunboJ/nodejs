@@ -34,7 +34,7 @@ app.use(userRouter);
 
 // here to handle the situation when random url is inputted
 app.use((req, res ,next) => {
-    res.status(404).render('404');
+    res.status(404).render('404', { pageTitle: '404' });
 });
 
 // express.js way for server to listen a certain port

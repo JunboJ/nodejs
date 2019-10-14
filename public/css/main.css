@@ -11,7 +11,16 @@ li:hover {
     background-color: black;
 }
 
+li a:hover {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
 li a {
     color: whitesmoke;
     text-decoration: none;
+}
+
+.active {
+    background-color: grey;
 }

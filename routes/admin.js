@@ -10,7 +10,7 @@ const product = [];
 router.get('/add-product', (req, res, next) => {
     // express send text/html code by default
     // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
-    res.render('add-product');
+    res.render('add-product', { pageTitle: 'Add Product' });
 
 });
 

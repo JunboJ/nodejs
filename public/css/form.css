@@ -8,7 +8,7 @@ main h1 {
     margin: 1rem auto 3rem;
 }
 
-form {
+form > div {
     width: 200px;
     max-width: 90%;
     margin: auto;
@@ -20,7 +20,7 @@ input:focus, button:focus {
 
 .inputField {
     width: inherit;
-    border-radius: 1rem;
+    border-radius: 3px;
     border-color: dimgray;
     padding: 5px;
 }

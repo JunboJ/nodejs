@@ -12,7 +12,7 @@ router.get('/home', (req, res, next) => {
         // res.sendFile(path.join(rootDir, 'html', 'user.html'));
     // render method will use default template engine defind in app.js
     const products = adminData.product;
-    res.render('user', { productList: products,  dataTitle: 'User Page'});
+    res.render('user', { productList: products,  pageTitle: 'User Page'});
 
 });
 

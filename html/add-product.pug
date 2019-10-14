@@ -5,6 +5,12 @@ block styles
 
 block content
     main
+        #addedProduct
+            ul.addedProduct__list
+                each product in productList
+                    li.addedProduct__item
+                        p #{product.title}
+
         #inputArea
             h1#hint Input Product Information
             form(action="/admin/add-product" method="POST")

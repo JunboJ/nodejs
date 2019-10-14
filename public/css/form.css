@@ -36,3 +36,18 @@ form button {
 form button:hover {
     border-color: dimgray;
 }
+
+#addedProduct {
+    position: fixed;
+    top: 10rem;
+    left: 1rem;
+    background-color: rgba(218, 218, 211, 0.336);
+    width: 200px;
+    height: auto;
+    min-height: 100px;
+    padding-top: 1rem;
+}
+
+.addedProduct__item {
+    list-style-type: none;
+}

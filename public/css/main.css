@@ -2,21 +2,21 @@ nav {
     background-color: dimgray;
 }
 
-ul li {
+.mainHeader__nav li {
     display: inline-block;
     padding: 1rem;
 }
 
-li:hover {
+.mainHeader__item:hover {
     background-color: black;
 }
 
-li a:hover {
+.mainHeader__item a:hover {
     color: whitesmoke;
     text-decoration: none;
 }
 
-li a {
+.mainHeader__item a {
     color: whitesmoke;
     text-decoration: none;
 }

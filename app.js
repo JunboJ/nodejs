@@ -1,7 +1,11 @@
 const exp = require('express');
 
+// express-handlebars need to be required
+const expHbs = require('express-handlebars');
+
 // this parser is just for the req send through forms
 const parser = require('body-parser');
+
 
 // node.js core module path
 const path = require('path');
@@ -11,12 +15,21 @@ const app = exp();
 
 // setup template engine here
     // this line is to tell express.js which engine it's going to use
-app.set('view engine', 'pug');
+// app.set('view engine', 'pug');
+
+    // Here we start to setup express-handlebars
+    // the first argument is the name you give to the engine
+app.engine('handlebars', expHbs());
+app.set('view engine', 'handlebars');
+
     // this line is to tell express.js where are the templates
     // the sencond argument is optional due to the default path of key
     // word 'views' is '/views', but my folder which holds all the templates
     // called html. Therefore the second argument is configured
 app.set('views', 'html');
+
+
+
 
 // require routes here
 const adminRouter = require('./routes/admin');
@@ -34,7 +47,12 @@ app.use(userRouter);
 
 // here to handle the situation when random url is inputted
 app.use((req, res ,next) => {
-    res.status(404).render('404', { pageTitle: '404', path: '' });
+    // add layout property to use layout or not to
+    res.status(404).render('404', {
+        pageTitle: '404', 
+        path: 'none', 
+        errorCSS: true 
+    });
 });
 
 // express.js way for server to listen a certain port

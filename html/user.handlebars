@@ -1,0 +1,16 @@
+<main class="container">
+    {{#if hasProduct }}
+        {{#each productList}}
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top img-fluid" src='/img/{{this.img}}'>
+            <div class="card-body">
+                <h5 class="card-title productName">{{this.title}}</h5>
+                <p class="card-text productInfo">{{this.info}}</p>
+                <button class="btn btn-success" type="button">Add to Cart</button>
+            </div>
+        </div>
+        {{/each}}
+    {{ else }}
+        <h1>No product found...</h1>
+    {{/if}}
+</main>

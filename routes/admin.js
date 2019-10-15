@@ -11,7 +11,12 @@ const product = [];
 router.get(pathName, (req, res, next) => {
     // express send text/html code by default
     // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
-    res.render('add-product', { pageTitle: 'Add Product', path: pathName, productList: product });
+    res.render('add-product', { 
+        pageTitle: 'Add Product', 
+        path: pathName, productList: 
+        product, adminCSS: true, 
+        activeAddProduct: true 
+    });
 });
 
 // post has similar sytax as 'use' only it is just for post action

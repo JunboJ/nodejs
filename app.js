@@ -43,6 +43,7 @@ app.set('views', 'html');
 // require routes here
 const adminRouter = require('./routes/admin');
 const userRouter = require('./routes/user');
+const _404controller = require('./controllers/404');
 
 // here we use parser to parse url
 app.use(parser.urlencoded({extended: false})); // the function in the use() argument has next() at the end
@@ -55,14 +56,7 @@ app.use('/admin', adminRouter.routes);
 app.use(userRouter);
 
 // here to handle the situation when random url is inputted
-app.use((req, res ,next) => {
-    // add layout property to use layout or not to
-    res.status(404).render('404', {
-        pageTitle: '404', 
-        path: 'none', 
-        errorCSS: true 
-    });
-});
+app.use(_404controller.get_404);
 
 // express.js way for server to listen a certain port
 app.listen(3000);

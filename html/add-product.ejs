@@ -25,10 +25,12 @@
         <div id='addedProduct'>
             <div id='addedProduct__innerbox'>
                 <ul id="addedProduct__list">
+                    <% if (productList.length > 0) { %>
                     <% for (let product of productList) { %>
                     <li class="addedProduct__item">
-                        <p> <% product.title %> </p>
+                        <%= product.title %>
                     </li>
+                    <% } %>
                     <% } %>
                 </ul>
             </div>

@@ -35,7 +35,7 @@ app.set('views', 'html');
     // the sencond argument is optional due to the default path of key
     // word 'views' is '/views', but my folder which holds all the templates
     // called html. Therefore the second argument is configured
-app.set('views', 'html');
+// app.set('views', 'html');
 
 
 

@@ -1,7 +1,7 @@
 const exp = require('express');
 
 // express-handlebars need to be required
-const expHbs = require('express-handlebars');
+// const expHbs = require('express-handlebars');
 
 // this parser is just for the req send through forms
 const parser = require('body-parser');
@@ -14,13 +14,22 @@ const path = require('path');
 const app = exp();
 
 // setup template engine here
+
     // this line is to tell express.js which engine it's going to use
 // app.set('view engine', 'pug');
 
     // Here we start to setup express-handlebars
     // the first argument is the name you give to the engine
-app.engine('handlebars', expHbs());
-app.set('view engine', 'handlebars');
+// app.engine('handlebars', expHbs({
+//     layoutsDir: 'views/layouts', //default value; optional
+//     defaultLayout: 'main-layout',
+//     extname: 'handlebars' //default value; optional
+// }));
+// app.set('view engine', 'handlebars');
+
+    // Next is ejs
+app.set('view engine', 'ejs');
+app.set('views', 'html');
 
     // this line is to tell express.js where are the templates
     // the sencond argument is optional due to the default path of key

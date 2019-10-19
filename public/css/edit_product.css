@@ -1,0 +1,22 @@
+main .card {
+    margin: 1rem 1rem;
+    display: inline-block;
+}
+
+.card img {
+    object-fit: cover;
+    min-height: 404px;
+    padding: 6px;
+}
+
+.edit_button_icon {
+    color: gray;
+}
+
+.delete_button_icon {
+    color: rgb(226, 72, 72)
+}
+
+.productButtonSet {
+    text-align: right;
+}

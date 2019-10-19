@@ -2,15 +2,13 @@ const exp = require('express');
 const path = require('path');
 // const rootDir = require('../utility/path');
 
-const productController = require('../controllers/products');
+const adminController = require('../controllers/admin');
 
 const router = exp.Router();
 
-const pathName = '/add-product';
-// const product = [];
-
-router.get(pathName, productController.get_addProduct);
-router.post(pathName, productController.post_addProduct);
+router.get('/add-product', adminController.get_addProduct);
+router.post('/add-product', adminController.post_addProduct);
+router.get('/edit-product', adminController.get_editProducts)
 
 module.exports = {
     "routes": router

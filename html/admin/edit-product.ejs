@@ -1,0 +1,48 @@
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/nav.ejs') %>
+
+<main class="container">
+    <h1>Edit Products</h1>
+    <h2>More functions will be added later</h2>
+    <% if (productList.length > 0) { %>
+    <% for (let product of productList) { %>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src='/img/<%= product.img %>'>
+        <div class="card-body">
+            <h5 class="card-title productName"><%= product.title %></h5>
+            <p class="card-text productInfo"><%= product.info %></p>
+            <!-- <button class="btn btn-success" type="button">Add to Cart</button> -->
+            <div class="productButtonSet">
+                <button class="btn btn-light " type="button" data-toggle="modal" data-target="#editingModal"><i class="fas fa-edit edit_button_icon"></i></button>
+                <button class="btn btn-light" type="button"><i class="fas fa-trash delete_button_icon"></i></button>
+            </div>
+        </div>
+    </div>
+    <% } %>
+    <% } else { %>
+    <p1>No product Found</p1>
+    <% } %>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../includes/foot.ejs') %>

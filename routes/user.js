@@ -6,9 +6,12 @@ const path = require('path');
 
 const router = exp.Router();
 
-const productController = require('../controllers/products');
+const shopController = require('../controllers/shop');
 
-router.get('/home', productController.get_products);
+
+router.get('/all-product', shopController.get_products);
+router.get('/cart', shopController.get_cart);
+router.get('/', shopController.get_index);
 
 module.exports = router;
 

@@ -29,7 +29,6 @@ const app = exp();
 
     // Next is ejs
 app.set('view engine', 'ejs');
-app.set('views', 'html');
 
     // this line is to tell express.js where are the templates
     // the sencond argument is optional due to the default path of key

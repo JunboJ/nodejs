@@ -10,7 +10,10 @@
         <div class="card-body">
             <h5 class="card-title productName"><%= product.title %></h5>
             <p class="card-text productInfo"><%= product.info %></p>
-            <button class="btn btn-success" type="button">Add to Cart</button>
+            <div>
+                <button class="btn btn-success" type="button">Add to Cart</button>
+                <a class="btn btn-primary" href="/details">Details</a>
+            </div>
         </div>
     </div>
     <% } %>

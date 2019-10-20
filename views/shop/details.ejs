@@ -1,0 +1,28 @@
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/nav.ejs') %>
+
+<main class="container">
+    <div class="mainContent row">
+        <div class="col-md-4">
+            <img class="productDetail_img img-thumbnail" src="/img/<%= product.img %>">
+            <div class="productDetail_buttonSet">
+                <button class="btn btn-success" type="button">Add to Cart</button>
+                <button class="btn btn-light" type="button"><i class="far fa-heart"></i></button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h1><%= product.title %></h1>
+            <p><%= product.info %></p>
+            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
+                tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas
+                semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien
+                ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.
+                Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac
+                dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus,
+                tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi,
+                tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+        </div>
+    </div>
+</main>
+
+<%- include('../includes/foot.ejs') %>

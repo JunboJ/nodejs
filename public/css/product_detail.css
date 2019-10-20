@@ -1,0 +1,14 @@
+.mainContent {
+    margin-top: 3rem;
+}
+
+.productDetail_buttonSet {
+    margin: 2rem;
+    text-align: center;
+}
+
+.productDetail_img {
+    max-height: 500px;
+    height: 500px;
+    object-fit: cover;
+}

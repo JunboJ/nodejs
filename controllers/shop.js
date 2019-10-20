@@ -17,6 +17,18 @@ exports.get_products = (req, res, next) => {
     });
 };
 
+exports.get_product = (req, res, next) => {
+    const pid = req.params.productId;
+    Product.fetchById(pid, prod => {
+        console.log(prod);
+        res.render('shop/details', {
+            pageTitle: prod.title,
+            product: prod,
+            path: '/details'
+        });
+    });
+};
+
 exports.get_index = (req, res, next) => {
     res.render('shop/shop', {
         pageTitle: 'Shop',

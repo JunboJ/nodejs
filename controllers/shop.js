@@ -1,5 +1,6 @@
 // const product = [];
 const Product = require('../models/product');
+const cart = require('../models/cart');
 
 exports.get_products = (req, res, next) => {
     // express send text/html code by default
@@ -40,5 +41,12 @@ exports.get_cart = (req, res, next) => {
     res.render('shop/cart', {
         pageTitle: 'My Cart',
         path: '/cart'
+    });
+};
+
+exports.post_cart = (req, res, next) => {
+    let productId = req.body.productId;
+    Product.findById(productId, (product) => {
+        cart.addProduct(productId);
     });
 };

@@ -8,3 +8,7 @@ main .card {
     min-height: 404px;
     padding: 6px;
 }
+
+.allProduct_buttonSet > * {
+    display: inline-block;
+}

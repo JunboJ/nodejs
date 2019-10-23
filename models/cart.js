@@ -8,7 +8,8 @@ module.exports = class Cart {
     //     this.products = [];
     //     this.totalQuantity = 0;
     // }
-    static addProduct(id, qty = 1) {
+    static addProduct(id, itemPrice, qty = 1) {
+        const price = parseFloat(itemPrice);
         fs.readFile(p, (err, fileContent) => {
             let cart;
             if (!err) {
@@ -30,12 +31,22 @@ module.exports = class Cart {
                 let existingProd = cart.products[existingProdIndex];
                 updatedProd = existingProd;
                 updatedProd.qty = updatedProd.qty + qty;
+                let itemsPrice = updatedProd.qty * price;
+                let addedPrice = qty * price;
+                updatedProd.itemsPrice = itemsPrice;
                 existingProd = updatedProd;
-                cart.totalQuantity = cart.totalQuantity + qty
+                cart.totalQuantity = cart.totalQuantity + qty;
+                cart.totalPrice = cart.totalPrice + addedPrice;
             } else {
-                updatedProd = { id: id, qty: qty };
+                let itemsprice = price * qty;
+                updatedProd = { id: id, unitPrice: price, qty: qty, itemsPrice: itemsprice };
                 cart.products = [...cart.products, updatedProd];
                 cart.totalQuantity = cart.totalQuantity + qty;
+                if (cart.totalPrice) {
+                    cart.totalPrice = cart.totalPrice + itemsprice;
+                } else {
+                    cart.totalPrice = itemsprice;
+                }
             }
             fs.writeFile(p, JSON.stringify(cart), err => {
                 console.log(err);

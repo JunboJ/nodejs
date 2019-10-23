@@ -20,3 +20,18 @@ main .card {
 .productButtonSet {
     text-align: right;
 }
+
+.productPrice {
+    font-size: large;
+    color: coral;
+    margin-bottom: 3px;
+}
+
+.productName {
+    margin: 0;
+}
+
+.productInfo {
+    font-size: small;
+    margin:0;
+}

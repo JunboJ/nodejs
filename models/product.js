@@ -19,8 +19,9 @@ const getAllProductsFromFile = callback => {
 };
 
 module.exports = class Product {
-    constructor(title, img, info, id = Math.random().toString()) {
+    constructor(title, price, img, info, id) {
         this.title = title;
+        this.price = price;
         this.img = img;
         this.info = info;
         this.id = id;
@@ -28,29 +29,22 @@ module.exports = class Product {
 
     save() {
         getAllProductsFromFile(prods => {
-            prods.push(this);
-            fs.writeFile(p, JSON.stringify(prods), (err) => {
-                console.log(err);
-            });
-        });
-    };
-
-    save_change(callback) {
-        fs.readFile(p, (err, fileContent) => {
-            const productList = JSON.parse(fileContent);
-            const existedProd = productList.find(prod => prod.id == this.id);
-            if (existedProd !== -1) {
-                existedProd.title = this.title;
-                existedProd.img = this.img;
-                existedProd.info = this.info;
-                fs.writeFile(p, JSON.stringify(productList), err => {
+            if (this.id) {
+                const existedProdIndex = prods.findIndex(prod => prod.id == this.id);
+                console.log("index: "+existedProdIndex);
+                const updatedProds = [...prods];
+                updatedProds[existedProdIndex] = this;
+                fs.writeFile(p, JSON.stringify(updatedProds), err => {
                     if (err) {
                         console.log(err);
                     }
                 });
-                callback('Changes have been saved!');
             } else {
-                callback('error: none existed product was found.');
+                this.id = Math.random().toString()
+                prods.push(this);
+                fs.writeFile(p, JSON.stringify(prods), (err) => {
+                    console.log('saving errors: ' + err);
+                });
             }
         });
     };

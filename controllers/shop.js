@@ -46,8 +46,9 @@ exports.get_cart = (req, res, next) => {
 
 exports.post_cart = (req, res, next) => {
     let productId = req.body.productId;
+    let productPrice = req.body.productPrice;
     Product.fetchById(productId, (product) => {
-        cart.addProduct(productId);
+        cart.addProduct(productId, productPrice);
         res.redirect('/cart');
     });
 };

@@ -11,6 +11,7 @@
             <div class="card-body">
                 <h5 class="card-title productName"><%= product.title %></h5>
                 <p class="card-text productInfo"><%= product.info %></p>
+                <b class="card-text productPrice"><%= product.price %>$</b>
                 <div class="allProduct_buttonSet">
                     <%- include('../includes/addToCart_button.ejs', {product: product}) %>
                     <a class="btn btn-primary" href="/all-product/<%= product.id %>">Details</a>

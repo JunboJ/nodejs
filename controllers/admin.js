@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+
 exports.get_addProduct = (req, res, next) => {
     // express send text/html code by default
     // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
@@ -6,7 +7,8 @@ exports.get_addProduct = (req, res, next) => {
         res.render('admin/add-product', {
             pageTitle: 'Add Product',
             path: 'admin/add-product',
-            productList: products
+            productList: products,
+            editing: false
         });
     });
 };
@@ -26,4 +28,29 @@ exports.get_editProducts = (req, res, next) => {
             productList: products
         });
     });
+};
+
+exports.get_editing = (req, res, next) => {
+    // express send text/html code by default
+    // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
+    const prodId = req.params.productId;
+    Product.fetchById(prodId, prod => {
+        res.render('admin/editing', {
+            pageTitle: 'Edit Product',
+            path: 'admin/editing',
+            productList: prod,
+            editing: true
+        });
+    });
+};
+
+exports.post_editing = (req, res, next) => {
+    // express send text/html code by default
+    // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
+    const prodId = req.params.productId;
+    const editedProduct = new Product(req.body.name, req.body.img, req.body.info, prodId);
+    editedProduct.save_change((res) => {
+        console.log(res);
+    });
+    res.redirect('/all-product');
 };

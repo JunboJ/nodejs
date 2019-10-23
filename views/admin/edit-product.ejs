@@ -13,7 +13,7 @@
             <p class="card-text productInfo"><%= product.info %></p>
             <!-- <button class="btn btn-success" type="button">Add to Cart</button> -->
             <div class="productButtonSet">
-                <button class="btn btn-light " type="button" data-toggle="modal" data-target="#editingModal"><i class="fas fa-edit edit_button_icon"></i></button>
+                <a href="/admin/edit-product/<%= product.id %>" class="btn btn-light "><i class="fas fa-edit edit_button_icon"></i></a>
                 <button class="btn btn-light" type="button"><i class="fas fa-trash delete_button_icon"></i></button>
             </div>
         </div>
@@ -24,7 +24,7 @@
     <% } %>
 
     <!-- Modal -->
-    <div class="modal fade" id="editingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- <div class="modal fade" id="editingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -43,6 +43,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </main>
 <%- include('../includes/foot.ejs') %>

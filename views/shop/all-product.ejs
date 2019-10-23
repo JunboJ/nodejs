@@ -1,25 +1,27 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/nav.ejs') %>
 
-<main class="container">
+<main>
     <h1>All Products</h1>
-    <% if (productList.length > 0) { %>
-    <% for (let product of productList) { %>
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src='/img/<%= product.img %>'>
-        <div class="card-body">
-            <h5 class="card-title productName"><%= product.title %></h5>
-            <p class="card-text productInfo"><%= product.info %></p>
-            <div class="allProduct_buttonSet">
-                <%- include('../includes/addToCart_button.ejs', {product: product}) %>
-                <a class="btn btn-primary" href="/all-product/<%= product.id %>">Details</a>
+    <div class="cardWraper">
+        <% if (productList.length > 0) { %>
+        <% for (let product of productList) { %>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src='/img/<%= product.img %>'>
+            <div class="card-body">
+                <h5 class="card-title productName"><%= product.title %></h5>
+                <p class="card-text productInfo"><%= product.info %></p>
+                <div class="allProduct_buttonSet">
+                    <%- include('../includes/addToCart_button.ejs', {product: product}) %>
+                    <a class="btn btn-primary" href="/all-product/<%= product.id %>">Details</a>
+                </div>
             </div>
         </div>
+        <% } %>
+        <% } else { %>
+        <p1>No product Found</p1>
+        <% } %>
     </div>
-    <% } %>
-    <% } else { %>
-    <p1>No product Found</p1>
-    <% } %>
 </main>
 
 <%- include('../includes/foot.ejs') %>

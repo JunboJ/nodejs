@@ -1,3 +1,9 @@
+.cardWraper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 main .card {
     margin: 1rem 1rem;
     display: inline-block;

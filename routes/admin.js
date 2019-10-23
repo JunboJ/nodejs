@@ -8,7 +8,9 @@ const router = exp.Router();
 
 router.get('/add-product', adminController.get_addProduct);
 router.post('/add-product', adminController.post_addProduct);
-router.get('/edit-product', adminController.get_editProducts)
+router.get('/edit-product/:productId', adminController.get_editing);
+router.post('/editing/:productId', adminController.post_editing);
+router.get('/edit-product', adminController.get_editProducts);
 
 module.exports = {
     "routes": router

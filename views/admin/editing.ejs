@@ -1,0 +1,41 @@
+<%- include('../includes/head.ejs') %>
+<%- include('../includes/nav.ejs') %>
+
+<main class="container">
+    <div id="inputArea">
+        <h1 id="hint">Input Product Information</h1>
+        <form action="/admin/editing/<%= productList.id %>" method="POST">
+            <div class="form-group">
+                <label for="productName">Product name</label>
+                <input class="inputField form-control" id="productName" type='text' name='name'
+                    value="<%= `${editing ? productList.title : ''}` %>" placeholder='Enter the product name'>
+                <br>
+                <label for="productImg">Product image</label>
+                <input class="inputField form-control" id="productImg" type='text' name='img'
+                    value="<%= `${editing ? productList.img : ''}` %>" placeholder='Enter the product image name'>
+                <br>
+                <label for="productInfo">Product description</label>
+                <textarea class="inputField form-control" id="productInfo" type='text' name='info'
+                    value="<%= `${editing ? productList.info : ''}` %>" placeholder='Enter the description'></textarea>
+                <button class="submitBtn btn btn-warning"
+                    type='submit'><%= `${editing ? 'Save Changes' : 'Add Product'}` %></button>
+            </div>
+        </form>
+    </div>
+    <% if (!editing) {%>
+    <div id='addedProduct'>
+        <div id='addedProduct__innerbox'>
+            <ul id="addedProduct__list">
+                <% if (productList.length > 0) { %>
+                <% for (let product of productList) { %>
+                <li class="addedProduct__item">
+                    <%= product.title %>
+                </li>
+                <% } %>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <% } %>
+</main>
+<%- include('../includes/foot.ejs') %>

@@ -17,7 +17,6 @@ const getAllProductsFromFile = callback => {
     });
     // return products;
 };
-
 module.exports = class Product {
     constructor(title, price, img, info, id) {
         this.title = title;
@@ -27,6 +26,8 @@ module.exports = class Product {
         this.id = id;
     };
 
+    
+    
     save() {
         getAllProductsFromFile(prods => {
             if (this.id) {

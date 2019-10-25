@@ -38,10 +38,13 @@ exports.get_index = (req, res, next) => {
 };
 
 exports.get_cart = (req, res, next) => {
-    res.render('shop/cart', {
-        pageTitle: 'My Cart',
-        path: '/cart'
-    });
+    cart.getProducts((cart) => {
+        res.render('shop/cart', {
+            pageTitle: 'My Cart',
+            path: '/cart',
+            cart: cart
+        });
+    })
 };
 
 exports.post_cart = (req, res, next) => {

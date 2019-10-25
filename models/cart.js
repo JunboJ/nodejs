@@ -3,27 +3,28 @@ const path = require('path');
 const rootDir = require('../utility/path');
 const p = path.join(rootDir, 'data', 'cart.json');
 
+const getCartProductsFromFile = callback => {
+    fs.readFile(p, (err, data) => {
+        let cart;
+        if (!err) {
+            cart = JSON.parse(data);
+            console.log(
+                'file found'
+            );
+        } else {
+            cart = { products: [], totalQuantity: 0, totalPrice: 0 };
+            console.log(
+                'no file found'
+            );
+        }
+        callback(cart);
+    });
+}
+
 module.exports = class Cart {
-    // constructor () {
-    //     this.products = [];
-    //     this.totalQuantity = 0;
-    // }
     static addProduct(id, itemPrice, qty = 1) {
         const price = parseFloat(itemPrice);
-        fs.readFile(p, (err, fileContent) => {
-            let cart;
-            if (!err) {
-                cart = JSON.parse(fileContent);
-                console.log(
-                    'file found'
-                );
-            } else {
-                cart = { products: [], totalQuantity: 0 };
-                console.log(
-                    'no file found'
-                );
-            }
-
+        getCartProductsFromFile((cart) => {
             const existingProdIndex = cart.products.findIndex(prod => prod.id == id);
             console.log('existing product: ' + existingProdIndex);
             let updatedProd;
@@ -51,6 +52,13 @@ module.exports = class Cart {
             fs.writeFile(p, JSON.stringify(cart), err => {
                 console.log(err);
             });
+        });
+    };
+
+    static getProducts(callback) {
+        getCartProductsFromFile((cart) => {
+            // need to get the details of product in the cart here
+            callback(cart);
         });
     };
 };

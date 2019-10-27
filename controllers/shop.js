@@ -47,11 +47,18 @@ exports.get_cart = (req, res, next) => {
     })
 };
 
-exports.post_cart = (req, res, next) => {
+exports.post_addToCart = (req, res, next) => {
     let productId = req.body.productId;
     let productPrice = req.body.productPrice;
     Product.fetchById(productId, (product) => {
         cart.addProduct(productId, productPrice);
+        res.redirect('/cart');
+    });
+};
+
+exports.post_deleteFromCart = (req, res, next) => {
+    let productId = req.params.productId;
+    cart.deleteProduct(productId, () => {
         res.redirect('/cart');
     });
 };

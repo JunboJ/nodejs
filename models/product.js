@@ -66,8 +66,7 @@ module.exports = class Product {
 
     static deleteById(id, callback) {
         getAllProductsFromFile(products => {
-            let updatedProducts = [];
-            updatedProducts = products.filter(prod => prod.id != id);
+            let updatedProducts = products.filter(prod => prod.id != id);
             fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
                 console.log('deleting errors: ' + err);
             });

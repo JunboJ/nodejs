@@ -4,7 +4,7 @@ const rootDir = require('../utility/path');
 const p = path.join(rootDir, 'data', 'cart.json');
 const Product = require('../models/product');
 
-const getCartProductsFromFile = callback => {
+const getCartFromFile = callback => {
     fs.readFile(p, (err, data) => {
         let cart;
         if (!err) {
@@ -23,9 +23,10 @@ const getCartProductsFromFile = callback => {
 }
 
 module.exports = class Cart {
+
     static addProduct(id, itemPrice, qty = 1) {
         const price = parseFloat(itemPrice);
-        getCartProductsFromFile((cart) => {
+        getCartFromFile((cart) => {
             const existingProdIndex = cart.products.findIndex(prod => prod.id == id);
             console.log('existing product: ' + existingProdIndex);
             let updatedProd;
@@ -57,19 +58,39 @@ module.exports = class Cart {
     };
 
     static getProducts(callback) {
-        getCartProductsFromFile((cart) => {
+        getCartFromFile((cart) => {
             // need to get the details of product in the cart here
             let fullInfoProds = [];
             let updatedCart = { ...cart };
             Product.fetch_all((products) => {
                 updatedCart.products.forEach(prod => {
                     let dbProd = products.find(product => product.id == prod.id);
-                    let updatedProd = {...dbProd, 'itemPrice': prod.itemsPrice, 'qty': prod.qty};
-                    fullInfoProds.push(updatedProd);
+                    if (dbProd === undefined) {
+                        let updatedProd = { ...prod, 'pulledOff': true };
+                        fullInfoProds.push(updatedProd);
+                    } else {
+                        let updatedProd = { ...dbProd, 'itemsPrice': prod.itemsPrice, 'qty': prod.qty };
+                        fullInfoProds.push(updatedProd);
+                    }
                 });
                 updatedCart.products = [...fullInfoProds];
                 callback(updatedCart);
             });
+        });
+    };
+
+    static deleteProduct(id, callback) {
+        getCartFromFile(cart => {
+            let deletingProduct = cart.products.find(prod => prod.id == id);
+            let updatedProducts = cart.products.filter(prod => prod.id != id);
+            let updatedCart = {...cart};
+            updatedCart.products = [...updatedProducts];
+            updatedCart.totalPrice = updatedCart.totalPrice - deletingProduct.itemsPrice;
+            updatedCart.totalQuantity = updatedCart.totalQuantity - deletingProduct.qty;
+            fs.writeFile(p, JSON.stringify(updatedCart), (err) => {
+                console.log('deleting errors: ' + err);
+            });
+            callback();
         });
     };
 };

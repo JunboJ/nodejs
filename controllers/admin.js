@@ -22,7 +22,7 @@ exports.post_addProduct = (req, res, next) => {
         req.body.info
         );
     product.save();
-    res.redirect('/all-product');
+    res.redirect('/admin/edit-product');
 };
 
 exports.get_editProducts = (req, res, next) => {
@@ -55,5 +55,12 @@ exports.post_editing = (req, res, next) => {
     const prodId = req.params.productId;
     const editedProduct = new Product(req.body.name, req.body.price, req.body.img, req.body.info, prodId);
     editedProduct.save();
-    res.redirect('/all-product');
+    res.redirect('/admin/edit-product');
+};
+
+exports.post_delete = (req, res, next) => {
+    const prodId = req.params.productId;
+    Product.deleteById(prodId, () => {
+        res.redirect('/admin/edit-product');
+    });
 };

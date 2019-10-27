@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const rootDir = require('../utility/path');
 const p = path.join(rootDir, 'data', 'cart.json');
+const Product = require('../models/product');
 
 const getCartProductsFromFile = callback => {
     fs.readFile(p, (err, data) => {
@@ -58,7 +59,17 @@ module.exports = class Cart {
     static getProducts(callback) {
         getCartProductsFromFile((cart) => {
             // need to get the details of product in the cart here
-            callback(cart);
+            let fullInfoProds = [];
+            let updatedCart = { ...cart };
+            Product.fetch_all((products) => {
+                updatedCart.products.forEach(prod => {
+                    let dbProd = products.find(product => product.id == prod.id);
+                    let updatedProd = {...dbProd, 'itemPrice': prod.itemsPrice, 'qty': prod.qty};
+                    fullInfoProds.push(updatedProd);
+                });
+                updatedCart.products = [...fullInfoProds];
+                callback(updatedCart);
+            });
         });
     };
 };

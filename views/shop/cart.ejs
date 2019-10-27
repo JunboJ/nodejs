@@ -6,19 +6,31 @@
     <% if (cart.products.length > 0) { %>
     <% for (let product of cart.products ) { %>
     <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action active">
-            <div class="d-flex justify-content-between">
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="outContent_wrapper">
                 <div class="img_wrapper">
                     <img class="cart_img" src="/img/<%= product.img %>">
                 </div>
                 <div class="content_wrapper">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">List group item heading</h5>
-                        <small>3 days ago</small>
+                    <div class="content_firstLine d-flex w-100 justify-content-between">
+                        <h5 class="title_text mb-1"><%= product.title %></h5>
+                        <small class="info_text">3 days ago</small>
                     </div>
-                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-                        blandit.</p>
-                    <small>Donec id elit non mi porta.</small>
+                    <div class="content_secondLine">
+                        <div>
+                            <p class="content_text mb-1"><%= product.info %></p>
+                            <small class="info_text">Donec id elit non mi porta.</small>
+                        </div>
+                        <div class="qty_wrapper">
+                            <small class="info_text">Quantity: <%= product.qty %></small>
+                        </div>
+                        <div class="price_wrapper">
+                            <b class="em_text"><%= product.itemPrice %>$</b>
+                        </div>
+                        <div class="cart_buttonSet">
+                            <button class="cart_deleteButton btn btn-light">&times;</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </a>

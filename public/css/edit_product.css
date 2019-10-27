@@ -18,7 +18,8 @@ main .card {
 }
 
 .productButtonSet {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .productPrice {

@@ -15,7 +15,9 @@
             <!-- <button class="btn btn-success" type="button">Add to Cart</button> -->
             <div class="productButtonSet">
                 <a href="/admin/edit-product/<%= product.id %>" class="btn btn-light "><i class="fas fa-edit edit_button_icon"></i></a>
-                <button class="btn btn-light" type="button"><i class="fas fa-trash delete_button_icon"></i></button>
+                <form action="/admin/delete/<%= product.id %>" method="POST">
+                    <button class="btn btn-light" type="submit"><i class="fas fa-trash delete_button_icon"></i></button>
+                </form>
             </div>
         </div>
     </div>

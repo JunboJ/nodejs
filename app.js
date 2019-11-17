@@ -15,11 +15,11 @@ const app = exp();
 
 // setup template engine here
 
-    // this line is to tell express.js which engine it's going to use
+// this line is to tell express.js which engine it's going to use
 // app.set('view engine', 'pug');
 
-    // Here we start to setup express-handlebars
-    // the first argument is the name you give to the engine
+// Here we start to setup express-handlebars
+// the first argument is the name you give to the engine
 // app.engine('handlebars', expHbs({
 //     layoutsDir: 'views/layouts', //default value; optional
 //     defaultLayout: 'main-layout',
@@ -27,13 +27,13 @@ const app = exp();
 // }));
 // app.set('view engine', 'handlebars');
 
-    // Next is ejs
+// Next is ejs
 app.set('view engine', 'ejs');
 
-    // this line is to tell express.js where are the templates
-    // the sencond argument is optional due to the default path of key
-    // word 'views' is '/views', but my folder which holds all the templates
-    // called html. Therefore the second argument is configured
+// this line is to tell express.js where are the templates
+// the sencond argument is optional due to the default path of key
+// word 'views' is '/views', but my folder which holds all the templates
+// called html. Therefore the second argument is configured
 // app.set('views', 'html');
 
 
@@ -45,7 +45,7 @@ const userRouter = require('./routes/user');
 const _404controller = require('./controllers/404');
 
 // here we use parser to parse url
-app.use(parser.urlencoded({extended: false})); // the function in the use() argument has next() at the end
+app.use(parser.urlencoded({ extended: false })); // the function in the use() argument has next() at the end
 
 // here to give all requests the access to public folder
 app.use(exp.static(path.join(__dirname, 'public'))); //give access to public folder

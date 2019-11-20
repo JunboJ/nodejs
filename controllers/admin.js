@@ -3,30 +3,36 @@ const Product = require('../models/product');
 exports.get_addProduct = (req, res, next) => {
     // express send text/html code by default
     // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
-    Product.fetch_all((products) => {
-        res.render('admin/editing', {
-            pageTitle: 'Add Product',
-            path: 'admin/add-product',
-            productList: products,
-            editing: false
-        });
-    });
+    Product.fetch_all()
+        .then(([products, info]) => {
+            res.render('admin/editing', {
+                pageTitle: 'Add Product',
+                path: 'admin/add-product',
+                productList: products,
+                editing: false
+            })
+        })
+        .catch(err => console.log(err));
 };
 
 exports.post_addProduct = (req, res, next) => {
     // product.push({ title: req.body.name, img: req.body.img, info: req.body.info })
     const product = new Product(
-        req.body.name, 
+        req.body.name,
         req.body.price,
-        req.body.img, 
+        req.body.img,
         req.body.info
-        );
-    product.save();
-    res.redirect('/admin/edit-product');
+    );
+    product
+        .save()
+        .then(() => {
+            res.redirect('/admin/add-product');
+        })
+        .catch(err => console.log(err));
 };
 
 exports.get_editProducts = (req, res, next) => {
-    Product.fetch_all((products) => {
+    Product.fetch_all(([products, info]) => {
         res.render('admin/edit-product', {
             pageTitle: 'Edit Product',
             path: 'admin/edit-product',

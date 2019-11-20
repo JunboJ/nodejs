@@ -6,7 +6,7 @@ const rootDir = require('../utility/path');
 const db = require('../utility/database');
 
 const getAllProductsFromDB = callback => {
-
+    return db.execute('SELECT * FROM `products`');
 };
 module.exports = class Product {
     constructor(title, price, img, info, id) {
@@ -17,20 +17,37 @@ module.exports = class Product {
         this.id = id;
     };
 
-    
-    
+
+
     save() {
-        getAllProductsFromDB(prods => {
-            
-        });
+        return getAllProductsFromDB()
+            .then(([prods, info]) => {
+                if (this.id) {
+                    const existedProdIndex = prods.findIndex(prod => prod.id == this.id);
+                    console.log("index: " + existedProdIndex);
+                    const updatedProds = [...prods];
+                    updatedProds[existedProdIndex] = this;
+                    return db.execute(
+                        'INSERT INTO products (title, price, img, info) VALUES (?, ?, ?, ?)',
+                        [updatedProds[existedProdIndex].title, updatedProds[existedProdIndex].price, updatedProds[existedProdIndex].img, updatedProds[existedProdIndex].info]
+                    );
+                } else {
+                    this.id = Math.random().toString()
+                    return db.execute(
+                        'INSERT INTO products (title, price, img, info) VALUES (?, ?, ?, ?)',
+                        [this.title, this.price, this.img, this.info]
+                    );
+                }
+            })
+            .catch(err => console.log(err));
     };
 
     static fetch_all() {
-        return db.execute('SELECT * FROM `products`');
+        return getAllProductsFromDB();
     };
 
     static fetchById(id, callback) {
-        const result =  db.execute('SELECT * FROM nodejsstudy.products where id = ' + id);
+        const result = db.execute('SELECT * FROM nodejsstudy.products where id = ' + id);
         callback(result);
     };
 

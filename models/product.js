@@ -30,7 +30,8 @@ module.exports = class Product {
     };
 
     static fetchById(id, callback) {
-
+        const result =  db.execute('SELECT * FROM nodejsstudy.products where id = ' + id);
+        callback(result);
     };
 
     static deleteById(id, callback) {

@@ -51,7 +51,7 @@ module.exports = class Product {
         callback(result);
     };
 
-    static deleteById(id, callback) {
-
+    static deleteById(id) {
+        return db.execute('DELETE FROM products WHERE id =' + id);
     };
 }

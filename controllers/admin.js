@@ -32,20 +32,22 @@ exports.post_addProduct = (req, res, next) => {
 };
 
 exports.get_editProducts = (req, res, next) => {
-    Product.fetch_all(([products, info]) => {
-        res.render('admin/edit-product', {
-            pageTitle: 'Edit Product',
-            path: 'admin/edit-product',
-            productList: products
-        });
-    });
+    Product.fetch_all()
+        .then(([products, info]) => {
+            res.render('admin/edit-product', {
+                pageTitle: 'Edit Product',
+                path: 'admin/edit-product',
+                productList: products
+            })
+        })
+        .catch(err => console.log(err));
 };
 
 exports.get_editing = (req, res, next) => {
     // express send text/html code by default
     // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
     const prodId = req.params.productId;
-    Product.fetchById(prodId, prod => {
+    Product.fetchById(prodId, ([prod, info]) => {
         res.render('admin/editing', {
             pageTitle: 'Edit Product',
             path: 'admin/editing',
@@ -60,8 +62,11 @@ exports.post_editing = (req, res, next) => {
     // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
     const prodId = req.params.productId;
     const editedProduct = new Product(req.body.name, req.body.price, req.body.img, req.body.info, prodId);
-    editedProduct.save();
-    res.redirect('/admin/edit-product');
+    editedProduct.save()
+        .then(() => {
+            res.redirect('/admin/edit-product');
+        })
+        .catch(err => console.log(err));
 };
 
 exports.post_delete = (req, res, next) => {

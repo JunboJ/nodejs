@@ -2,7 +2,7 @@ const exp = require('express');
 const path = require('path');
 // const rootDir = require('../utility/path');
 
-const adminController = require('../controllers/admin');
+const adminController = require('../controllers/admin.sql');
 
 const router = exp.Router();
 

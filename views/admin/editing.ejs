@@ -20,7 +20,7 @@
                 <br>
                 <label for="productInfo">Product description</label>
                 <textarea class="inputField form-control" id="productInfo" type='text' name='info'
-                    value="<%= `${editing ? productList.info : ''}` %>" placeholder='Enter the description'></textarea>
+                    placeholder='Enter the description'><%= `${editing ? productList.info : ''}` %></textarea>
                 <button class="submitBtn btn btn-warning"
                     type='submit'><%= `${editing ? 'Save Changes' : 'Add Product'}` %></button>
             </div>

@@ -10,6 +10,9 @@ const parser = require('body-parser');
 // node.js core module path
 const path = require('path');
 
+// import sequelize file and sync the database at the end of this file
+const sequelize = require('./utility/database');
+
 // start express.js
 const app = exp();
 
@@ -57,8 +60,15 @@ app.use(userRouter);
 // here to handle the situation when random url is inputted
 app.use(_404controller.get_404);
 
-// express.js way for server to listen a certain port
-app.listen(3000);
+// sync database before run the server
+sequelize.sync()
+    .then(result => {
+        // console.log(result);
+        // express.js way for server to listen a certain port
+        app.listen(3000);
+    })
+    .catch(err => console.log(err))
+
 
 
 

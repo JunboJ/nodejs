@@ -17,17 +17,17 @@ exports.get_addProduct = (req, res, next) => {
 
 exports.post_addProduct = (req, res, next) => {
     // product.push({ title: req.body.name, img: req.body.img, info: req.body.info })
-    const title = req.body.title;
-    const price = req.body.price;
-    const img = req.body.img;
-    const info = req.body.info;
-    Product.create({
-        title: title,
-        info: info,
-        img: img,
-        price: price
-    })
-        .then(result => console.log(result))
+    const product = new Product(
+        req.body.name,
+        req.body.price,
+        req.body.img,
+        req.body.info
+    );
+    product
+        .save()
+        .then(() => {
+            res.redirect('/admin/add-product');
+        })
         .catch(err => console.log(err));
 };
 

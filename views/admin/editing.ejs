@@ -6,9 +6,9 @@
         <h1 id="hint"><% `${ editing ? 'Update' : 'Input' }` %> Product Information</h1>
         <form action="<%= `${ editing ? '/admin/editing/'+productList.id : '/admin/add-product' }` %>" method="POST">
             <div class="form-group">
-                <label for="productName">Product name</label>
-                <input class="inputField form-control" id="productName" type='text' name='name'
-                    value="<%= `${editing ? productList.title : ''}` %>" placeholder='Enter the product name'>
+                <label for="productTitle">Product title</label>
+                <input class="inputField form-control" id="productTitle" type='text' name='title'
+                    value="<%= `${editing ? productList.title : ''}` %>" placeholder='Enter the product title'>
                 <br>
                 <label for="productPrice">Product price</label>
                 <input class="inputField form-control" id="productPrice" type='number' step="0.01" name='price'

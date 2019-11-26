@@ -7,8 +7,8 @@ exports.get_products = (req, res, next) => {
     // console.log(product);
     // res.sendFile(path.join(rootDir, 'html', 'user.html'));
 
-    Product.fetch_all()
-        .then(([rows, fieldData]) => {
+    Product.findAll()
+        .then((rows) => {
             // render method will use default template engine defind in app.js
             res.render('shop/all-product', {
                 pageTitle: 'All Products',
@@ -22,14 +22,15 @@ exports.get_products = (req, res, next) => {
 
 exports.get_product = (req, res, next) => {
     const pid = req.params.productId;
-    Product.fetchById(pid, prod => {
-        console.log(prod);
-        res.render('shop/details', {
-            pageTitle: prod.title,
-            product: prod,
-            path: '/details'
-        });
-    });
+    Product.findByPk(pid)
+        .then(prod => {
+            res.render('shop/details', {
+                pageTitle: prod.title,
+                product: prod,
+                path: '/details'
+            });
+        })
+        .catch();
 };
 
 exports.get_index = (req, res, next) => {
@@ -52,10 +53,12 @@ exports.get_cart = (req, res, next) => {
 exports.post_addToCart = (req, res, next) => {
     let productId = req.body.productId;
     let productPrice = req.body.productPrice;
-    Product.fetchById(productId, (product) => {
-        cart.addProduct(productId, productPrice);
-        res.redirect('/cart');
-    });
+    Product.findByPk(productId)
+        .then(product => {
+            cart.addProduct(productId, productPrice);
+            res.redirect('/cart');
+        })
+        .catch();
 };
 
 exports.post_deleteFromCart = (req, res, next) => {

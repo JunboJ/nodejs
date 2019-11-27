@@ -62,26 +62,41 @@ exports.get_editing = (req, res, next) => {
         }
     ).catch(err => {
         console.log(err);
-    })
+    });
 };
 
 exports.post_editing = (req, res, next) => {
     // express send text/html code by default
     // res.sendFile(path.join(rootDir, 'html', 'add-product.html'));
     const prodId = req.params.productId;
-    const editedProduct = new Product(req.body.name, req.body.price, req.body.img, req.body.info, prodId);
-    editedProduct.save()
-        .then(() => {
-            res.redirect('/admin/edit-product');
+    const prodTitle = req.body.title;
+    const prodPrice = req.body.price;
+    const prodImg = req.body.img;
+    const prodInfo = req.body.info;
+    Product.findByPk(prodId)
+        .then(product => {
+            product.title = prodTitle;
+            product.price = prodPrice;
+            product.img = prodImg;
+            product.info = prodInfo;
+            product.save().then(() => {
+                res.redirect('/admin/edit-product');
+            })
+                .catch(err => {
+                    console.log(err);
+                });
         })
         .catch(err => console.log(err));
 };
 
 exports.post_delete = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.deleteById(prodId)
+    Product.findByPk(prodId)
+        .then(prod => {
+            return prod.destroy();
+        })
         .then(() => {
             res.redirect('/admin/edit-product');
         })
-        .catch(err => console.log(err));
+        .catch();
 };

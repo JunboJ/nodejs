@@ -12,6 +12,8 @@ const path = require('path');
 
 // import sequelize file and sync the database at the end of this file
 const sequelize = require('./utility/database');
+const User = require('./models/user');
+const Product = require('./models/product');
 
 // start express.js
 const app = exp();
@@ -53,6 +55,16 @@ app.use(parser.urlencoded({ extended: false })); // the function in the use() ar
 // here to give all requests the access to public folder
 app.use(exp.static(path.join(__dirname, 'public'))); //give access to public folder
 
+// get user from database
+app.use((req, res ,next) => {
+    User.findByPk(1)
+    .then(user => {
+        req.user = user;
+        next();
+    })
+    .catch(err => console.log(err));
+});
+
 // filtering pages by add common path name here
 app.use('/admin', adminRouter.routes);
 app.use(userRouter);
@@ -60,14 +72,33 @@ app.use(userRouter);
 // here to handle the situation when random url is inputted
 app.use(_404controller.get_404);
 
+// set relations between modules
+Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+
+
 // sync database before run the server
-sequelize.sync()
+sequelize
+    // .sync({ force: true })
+    .sync()
     .then(result => {
-        // console.log(result);
+        return User.findByPk(1);
+    })
+    .then(user => {
+        if (!user) {
+            return User.create({
+                firstName: 'James',
+                lastName: 'Zhang',
+                email: 'junboz@gmail.com'
+            });
+        }
+        return user;
+    })
+    .then(user => {
+        // console.log(user);
         // express.js way for server to listen a certain port
         app.listen(3000);
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 
 
 

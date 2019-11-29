@@ -22,8 +22,7 @@ exports.post_addProduct = (req, res, next) => {
     const img = req.body.img;
     const info = req.body.info;
     console.log('title: ' + title);
-
-    Product.create({
+    req.user.createProduct({
         title: title,
         info: info,
         img: img,

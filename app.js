@@ -60,6 +60,7 @@ app.use((req, res ,next) => {
     User.findByPk(1)
     .then(user => {
         req.user = user;
+        // console.log(user);
         next();
     })
     .catch(err => console.log(err));
@@ -74,6 +75,7 @@ app.use(_404controller.get_404);
 
 // set relations between modules
 Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+User.hasMany(Product);
 
 
 // sync database before run the server

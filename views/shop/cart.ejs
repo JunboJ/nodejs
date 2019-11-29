@@ -3,8 +3,8 @@
 
 <main class="container">
     <h1>Cart page</h1>
-    <% if (cart.products.length > 0) { %>
-    <% for (let product of cart.products ) { %>
+    <% if (cart.length > 0) { %>
+    <% for (let product of cart ) { %>
     <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
             <div class="outContent_wrapper">
@@ -48,6 +48,8 @@
             <p class="info_text">Total price: <%= cart.totalPrice %>$</p>
         </div>
     </div>
+    <% } else { %>
+        <p>Your cart is empty</p>
     <% } %>
 </main>
 

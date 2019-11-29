@@ -14,6 +14,8 @@ const path = require('path');
 const sequelize = require('./utility/database');
 const User = require('./models/user');
 const Product = require('./models/product');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cartItem');
 
 // start express.js
 const app = exp();
@@ -56,14 +58,14 @@ app.use(parser.urlencoded({ extended: false })); // the function in the use() ar
 app.use(exp.static(path.join(__dirname, 'public'))); //give access to public folder
 
 // get user from database
-app.use((req, res ,next) => {
+app.use((req, res, next) => {
     User.findByPk(1)
-    .then(user => {
-        req.user = user;
-        // console.log(user);
-        next();
-    })
-    .catch(err => console.log(err));
+        .then(user => {
+            req.user = user;
+            // console.log(user);
+            next();
+        })
+        .catch(err => console.log(err));
 });
 
 // filtering pages by add common path name here
@@ -76,6 +78,11 @@ app.use(_404controller.get_404);
 // set relations between modules
 Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 User.hasMany(Product);
+
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
 
 
 // sync database before run the server

@@ -26,10 +26,10 @@
                             <small class="info_text">Donec id elit non mi porta.</small>
                         </div>
                         <div class="qty_wrapper">
-                            <small class="info_text">Quantity: <%= product.qty %></small>
+                            <small class="info_text">Quantity: <%= product.cartItem.quantity %></small>
                         </div>
                         <div class="price_wrapper">
-                            <b class="em_text"><%= product.itemsPrice %>$</b>
+                            <b class="em_text"><%= product.price %>$</b>
                         </div>
                         <div class="cart_buttonSet">
                             <form action="/cart/delete/<%= product.id %>" method="POST">

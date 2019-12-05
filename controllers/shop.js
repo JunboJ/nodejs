@@ -11,7 +11,7 @@ exports.get_products = (req, res, next) => {
     Product.findAll()
         .then((rows) => {
             // render method will use default template engine defind in app.js
-            console.log(rows);
+            // console.log(rows);
             res.render('shop/all-product', {
                 pageTitle: 'All Products',
                 productList: rows,
@@ -50,12 +50,12 @@ exports.get_cart = (req, res, next) => {
                 return cart.getProducts();
             } else {
                 req.user.createCart()
-                .then(cart => {
-                    return cart.getProducts();
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+                    .then(cart => {
+                        return cart.getProducts();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             }
         })
         .then(products => {
@@ -63,8 +63,6 @@ exports.get_cart = (req, res, next) => {
             if (products) {
                 prods = products;
             }
-            console.log(prods);
-            
             res.render('shop/cart', {
                 pageTitle: 'My Cart',
                 path: '/cart',
@@ -77,25 +75,44 @@ exports.get_cart = (req, res, next) => {
 };
 
 exports.post_addToCart = (req, res, next) => {
-    req.user
-        .getCart()
-        .then(cart => {
-            if (cart !== null) {
-                console.log(cart);
+    let cartItem = null;
+    let productId = req.body.productId;
+    let cart = null;
+    req.user.getCart()
+        .then(userCart => {
+            if (userCart !== null) {
+                cart = userCart;
             } else {
-                return req.user.creatCart();
+                req.user.creatCart()
+                    .then(userCart => {
+                        cart = userCart;
+                    });
             }
+            return cart;
         })
         .then(cart => {
-            let productId = req.body.productId;
-            Product.findByPk(productId)
-                .then(product => {
-                    cart.addProduct(productId);
-                    res.redirect('/cart');
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            return Product.findByPk(productId);
+        })
+        .then(product => {
+            if (product) {
+                console.log('id: ' + productId);
+                return cart.getProducts({ where: { id: productId } });
+            } else {
+                return Promise.reject('No product found!');
+            }
+        })
+        .then(prod => {
+            if (prod) {
+                console.log(prod[0]);
+                const qtyOld = prod[0].cartItem.quantity;
+                const qtyNew = (qtyOld + 1);
+                return cart.addProduct(prod, { through: { quantity: qtyNew } })
+            } else {
+                return cart.addProduct(prod, { through: { quantity: 1 } });
+            }
+        })
+        .then(() => {
+            res.redirect('/cart')
         })
         .catch(err => {
             console.log(err);
@@ -104,7 +121,4 @@ exports.post_addToCart = (req, res, next) => {
 
 exports.post_deleteFromCart = (req, res, next) => {
     let productId = req.params.productId;
-    cart.deleteProduct(productId, () => {
-        res.redirect('/cart');
-    });
 };

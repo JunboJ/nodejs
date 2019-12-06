@@ -88,6 +88,8 @@ exports.post_addToCart = (req, res, next) => {
                         cart = userCart;
                     });
             }
+            console.log(cart);
+
             return cart;
         })
         .then(cart => {
@@ -96,20 +98,20 @@ exports.post_addToCart = (req, res, next) => {
         .then(product => {
             if (product) {
                 console.log('id: ' + productId);
+                cartItem = product;
                 return cart.getProducts({ where: { id: productId } });
             } else {
                 return Promise.reject('No product found!');
             }
         })
         .then(prod => {
-            if (prod) {
-                console.log(prod[0]);
+            console.log(prod.length > 0);
+            if (prod.length > 0) {
                 const qtyOld = prod[0].cartItem.quantity;
                 const qtyNew = (qtyOld + 1);
-                return cart.addProduct(prod, { through: { quantity: qtyNew } })
-            } else {
-                return cart.addProduct(prod, { through: { quantity: 1 } });
+                return cart.addProduct(cartItem, { through: { quantity: qtyNew } })
             }
+            return cart.addProduct(cartItem, { through: { quantity: 1 } });
         })
         .then(() => {
             res.redirect('/cart')
@@ -120,5 +122,20 @@ exports.post_addToCart = (req, res, next) => {
 };
 
 exports.post_deleteFromCart = (req, res, next) => {
-    let productId = req.params.productId;
+    let productId = req.body.productId;
+    req.user
+        .getCart()
+        .then(cart => {
+            return cart.getProducts({ where: { id: productId } });
+        })
+        .then(prod => {
+            const product = prod[0];
+            return product.cartItem.destroy();
+        })
+        .then(result => {
+            res.redirect('/cart');
+        })
+        .catch(err => {
+            console.log(err);
+        })
 };

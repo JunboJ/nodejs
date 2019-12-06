@@ -13,7 +13,7 @@ router.get('/all-product', shopController.get_products);
 router.get('/all-product/:productId', shopController.get_product);
 router.get('/cart', shopController.get_cart);
 router.post('/cart', shopController.post_addToCart);
-router.post('/cart/delete/:productId', shopController.post_deleteFromCart);
+router.post('/cart/delete', shopController.post_deleteFromCart);
 router.get('/', shopController.get_index);
 
 module.exports = router;

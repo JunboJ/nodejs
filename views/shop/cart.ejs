@@ -18,7 +18,24 @@
                         <% } else { %>
                         <h5 class="title_text mb-1"><%= product.title %></h5>
                         <% } %>
-                        <small class="info_text">3 days ago</small>
+                        <% if (product.updatedAt) {
+                            // console.log(product.updatedAt);
+                            let today = new Date(),
+                            // todayYear = today.getFullYear(),
+                            // todayMonth = today.getMonth() + 1,
+                            // todayDate = today.getDate(),
+                            // prodYear = product.updatedAt.getFullYear(),
+                            // prodMonth = product.updatedAt.getMonth(),
+                            // prodDate = product.updatedAt.getDate(),
+                            // years = todayYear - prodYear,
+                            // months = todayMonth - prodMonth,
+                            // days = todayDate - prodDate,
+                            timeDifference = today.getTime() - product.updatedAt.getTime(),
+                            dayDifference = timeDifference / (1000 * 3600 * 24),
+                            daysString = `${Math.floor(dayDifference)}day(s)`;
+                            %>
+                        <small class="info_text"><%= daysString %></small>
+                        <% } %>
                     </div>
                     <div class="content_secondLine">
                         <div>
@@ -29,11 +46,12 @@
                             <small class="info_text">Quantity: <%= product.cartItem.quantity %></small>
                         </div>
                         <div class="price_wrapper">
-                            <b class="em_text"><%= product.price %>$</b>
+                            <b class="em_text"><%= product.price * product.cartItem.quantity %>$</b>
                         </div>
                         <div class="cart_buttonSet">
-                            <form action="/cart/delete/<%= product.id %>" method="POST">
+                            <form action="/cart/delete" method="POST">
                                 <button class="cart_deleteButton btn btn-light">&times;</button>
+                                <input type="hidden" name="productId" value="<%= product.id %>">
                             </form>
                         </div>
                     </div>
@@ -49,7 +67,7 @@
         </div>
     </div>
     <% } else { %>
-        <p>Your cart is empty</p>
+    <p>Your cart is empty</p>
     <% } %>
 </main>
 

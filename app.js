@@ -16,6 +16,8 @@ const User = require('./models/user');
 const Product = require('./models/product');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cartItem');
+const Orders = require('./models/orders');
+const OrderItems = require('./models/orderItems');
 
 // start express.js
 const app = exp();
@@ -83,6 +85,9 @@ User.hasOne(Cart);
 Cart.belongsTo(User);
 Cart.belongsToMany(Product, { through: CartItem });
 Product.belongsToMany(Cart, { through: CartItem });
+User.hasMany(Orders);
+Orders.belongsTo(User);
+Orders.belongsToMany(Product, { through: OrderItems });
 
 
 // sync database before run the server

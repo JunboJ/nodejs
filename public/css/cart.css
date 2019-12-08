@@ -3,6 +3,11 @@
     justify-content: space-between;
 }
 
+.cartBtnSets_wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .img_wrapper, .qty_wrapper, .price_wrapper {
     display: flex;
     flex-direction: column;

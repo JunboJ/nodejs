@@ -1,8 +1,4 @@
-// const product = [];
 const Product = require('../models/product');
-const cart = require('../models/cart');
-
-
 
 exports.get_products = (req, res, next) => {
     // express send text/html code by default
@@ -139,3 +135,38 @@ exports.post_deleteFromCart = (req, res, next) => {
             console.log(err);
         })
 };
+
+exports.post_checkOut = (req, res, next) => {
+    let cartId = req.body.cartId;
+    let userCart = null;
+    let cartProds = null;
+    req.user
+        .getCart()
+        .then(cart => {
+            userCart = cart;
+            return cart.getProducts();
+        })
+        .then(products => {
+            cartProds = products;
+            console.log(typeof products);
+            return req.user.createOrder();
+        })
+        .then(order => {
+            return order.addProducts(cartProds.map((prod => {
+                prod.orderitems = { quantity: prod.cartItem.quantity };
+                return prod;
+            })));
+        })
+        .then(result => {
+            res.redirect('/orders');
+        })
+        .catch(err => console.log(err));
+}
+
+exports.get_orders = (req, res, next) => {
+    res.render('shop/orders', {
+        pageTitle: 'My Orders',
+        path: '/orders',
+        cart: null
+    });
+}

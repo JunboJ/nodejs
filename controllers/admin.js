@@ -28,9 +28,9 @@ exports.post_addProduct = (req, res, next) => {
         img: img,
         price: price
     })
-        .then(
+        .then((result) => {
             res.redirect('/admin/add-product')
-        )
+        })
         .catch(err => console.log(err));
 };
 
